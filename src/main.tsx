@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { MetaMaskContextProvider } from './hooks/useMetamask.tsx';
+
 // import Root from './routes/root';
 import App from './App.tsx';
 import './index.css';
@@ -24,7 +26,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    {/* <App /> */}
-    <RouterProvider router={router} />
+    <MetaMaskContextProvider>
+      <RouterProvider router={router} />
+    </MetaMaskContextProvider>
   </React.StrictMode>
 );
