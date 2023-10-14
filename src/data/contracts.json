@@ -1,0 +1,10 @@
+{
+  "EthereumInsurance": {
+    "address": "0x30A385A68abA13104Cec582fB349e224a1333c23",
+    "ABI_FILE_PATH": "../artifacts/contracts/EthereumInsurance.sol/EthereumInsurance.json"
+  },
+  "WeatherContract": {
+    "address": "0x30A385A68abA13104Cec582fB349e224a1333c23",
+    "ABI_FILE_PATH": "../artifacts/contracts/EthereumInsurance.sol/EthereumInsurance.json"
+  }
+}
