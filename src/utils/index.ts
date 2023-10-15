@@ -11,3 +11,9 @@ export const formatChainAsNum = (chainIdHex: string) => {
 export const formatAddress = (addr: string) => {
   return `${addr.substring(0, 8)}...`;
 };
+
+export const getErrorMessage = (errorDump: string) => {
+  const delimiter = '"';
+  const tokens = errorDump.split(delimiter).slice(0, 2);
+  return tokens.join(delimiter) + '"';
+};

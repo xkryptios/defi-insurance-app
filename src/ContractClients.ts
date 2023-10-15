@@ -4,6 +4,22 @@ import eth1000 from './artifacts/contracts/EthInsurance.sol/EthInsurance1000.jso
 import eth2000 from './artifacts/contracts/EthInsurance.sol/EthInsurance2000.json' assert { type: 'json' };
 import eth3000 from './artifacts/contracts/EthInsurance.sol/EthInsurance3000.json' assert { type: 'json' };
 
+type ClientPolicy = {
+  //purchased policy registered
+  policyName: string;
+  address: string;
+  startDate: Date;
+  endDate: Date;
+  premium: string;
+  coverAmount: string;
+  status: string;
+};
+
+const epochToDate = (epoch: number) => {
+  const secs = new Date(epoch * 1000);
+  return secs.toUTCString();
+};
+
 export class PolicyContract {
   private provider: ethers.BrowserProvider;
   private contract: ethers.Contract;
@@ -65,10 +81,10 @@ export const policyList = [
   {
     category: 'Eth',
     policyName: 'Ethereum Insurance 1000',
-    address: '0xAc1E13e507B77FCdc350FfEd17bbb1927a2ecE09',
+    address: '0x725D7FD5D4B6A458956B40Cc767eA08b38534560',
     duration: 90,
     contract: new PolicyContract(
-      '0xAc1E13e507B77FCdc350FfEd17bbb1927a2ecE09',
+      '0x725D7FD5D4B6A458956B40Cc767eA08b38534560',
       eth1000
     ),
   },

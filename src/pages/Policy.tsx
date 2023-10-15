@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useParams } from 'react-router-dom';
 // import { ethers } from 'ethers';
 import { useState } from 'react';
 import { policyList } from '../ContractClients';
 import Nav from '../components/Nav';
 import { formatEther } from 'ethers';
+import { getErrorMessage } from '../utils';
+import { setErrorMessage } from '../hooks/useMetaMask';
 
 export default function Policy() {
   const { policyId } = useParams();
@@ -102,7 +105,9 @@ export default function Policy() {
                   details.coverAmount
                 );
               } catch (err: any) {
-                console.log(err.message);
+                // console.log(err);
+                // const e = err.toString();
+                console.log(getErrorMessage(err.message));
               }
             }}
             disabled={premium == ''}

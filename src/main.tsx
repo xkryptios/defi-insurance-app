@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { MetaMaskContextProvider } from './hooks/useMetamask.tsx';
+import { MetaMaskContextProvider } from './hooks/useMetaMask';
+import { ErrorBanner } from './components/ErrorBanner.tsx';
 
 // import Root from './routes/root';
 import App from './App.tsx';
@@ -28,6 +29,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <MetaMaskContextProvider>
       <RouterProvider router={router} />
+      <ErrorBanner></ErrorBanner>
     </MetaMaskContextProvider>
   </React.StrictMode>
 );

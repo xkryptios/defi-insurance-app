@@ -28,6 +28,7 @@ interface MetaMaskContextData {
   hasProvider: boolean | null;
   error: boolean;
   errorMessage: string;
+  setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
   isConnecting: boolean;
   connectMetaMask: () => void;
   clearError: () => void;
@@ -135,6 +136,7 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
         error: !!errorMessage,
         errorMessage,
         isConnecting,
+        setErrorMessage,
         connectMetaMask,
         clearError,
       }}
