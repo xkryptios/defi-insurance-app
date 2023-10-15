@@ -3,10 +3,12 @@ import Card from './Card';
 export default function ListPolicy() {
   return (
     <section className=" w-full bg-blue-200">
-      <div className="max-w-screen-lg mx-auto bg-blue-400">
-        <h1 className=" text-6xl">Buy Policy</h1>
-        <p>Choose the type of policy you want and get a quote.</p>
-        <form className="">
+      <div className="max-w-screen-lg mx-auto">
+        <h1 className=" text-6xl py-10">Buy Policy</h1>
+        <p className="py-5">
+          Choose the type of policy you want and get a quote.
+        </p>
+        <form className="py-5">
           {/* <label className="sr-only">Search</label> */}
           <div className="relative w-1/2 flex justify">
             <input
@@ -37,7 +39,7 @@ export default function ListPolicy() {
         </form>
         <div className="grid grid-cols-3">
           {policyList.map((policy) => {
-            return <Card policy={policy}></Card>;
+            return <Card key={policy.policyName} policy={policy}></Card>;
           })}
         </div>
       </div>

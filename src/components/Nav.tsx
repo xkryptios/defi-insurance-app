@@ -2,8 +2,8 @@ import ConnectButton from './ConnectButton';
 import { Link } from 'react-router-dom';
 export default function Nav() {
   return (
-    <div className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <div className="bg-white shadow-lg dark:bg-gray-900 w-full z-20 border-b border-gray-200 dark:border-gray-600">
+      <div className="max-w-screen-lg flex flex-wrap items-center justify-between mx-auto p-4">
         <Link to={'/'} className="flex items-center">
           <img
             src="https://flowbite.com/docs/images/logo.svg"

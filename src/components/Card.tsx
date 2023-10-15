@@ -20,6 +20,9 @@ export default function Card({ policy }: Props) {
       <p className="font-normal text-gray-700 dark:text-gray-400">
         {policy.duration}
       </p>
+      <p className="font-normal text-gray-700 dark:text-gray-400">
+        capacity: 1ETH
+      </p>
     </Link>
   );
 }
