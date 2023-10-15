@@ -4,11 +4,11 @@ import eth1000 from './artifacts/contracts/EthInsurance.sol/EthInsurance1000.jso
 import eth2000 from './artifacts/contracts/EthInsurance.sol/EthInsurance2000.json' assert { type: 'json' };
 import eth3000 from './artifacts/contracts/EthInsurance.sol/EthInsurance3000.json' assert { type: 'json' };
 
-export class Insurance {
+export class PolicyContract {
   private provider: ethers.BrowserProvider;
   private contract: ethers.Contract;
-  private address: string;
   private abi: any;
+  public address: string;
 
   public constructor(address: string, data: any) {
     this.provider = new ethers.BrowserProvider(window.ethereum);
@@ -53,13 +53,21 @@ export class Insurance {
   }
 }
 
-export const coverList = [
+export type Policy = {
+  category: string;
+  policyName: string;
+  address: string;
+  duration: number;
+  contract: PolicyContract;
+};
+
+export const policyList = [
   {
     category: 'Eth',
     policyName: 'Ethereum Insurance 1000',
     address: '0xAc1E13e507B77FCdc350FfEd17bbb1927a2ecE09',
-    data: eth1000,
-    handler: new Insurance(
+    duration: 90,
+    contract: new PolicyContract(
       '0xAc1E13e507B77FCdc350FfEd17bbb1927a2ecE09',
       eth1000
     ),
@@ -68,7 +76,8 @@ export const coverList = [
     category: 'Eth',
     policyName: 'Ethereum Insurance 2000',
     address: '0x054b6331E3BCA51493af59535F7e0Ce7d46D1c4c',
-    handler: new Insurance(
+    duration: 90,
+    contract: new PolicyContract(
       '0x054b6331E3BCA51493af59535F7e0Ce7d46D1c4c',
       eth2000
     ),
@@ -77,7 +86,8 @@ export const coverList = [
     category: 'Eth',
     policyName: 'Ethereum Insurance 3000',
     address: '0xEc4536e106ea8dd538c803FEAB67c9C50924DC72',
-    handler: new Insurance(
+    duration: 90,
+    contract: new PolicyContract(
       '0xEc4536e106ea8dd538c803FEAB67c9C50924DC72',
       eth3000
     ),
@@ -86,7 +96,8 @@ export const coverList = [
     category: 'Weather',
     policyName: 'Weather Insurance',
     address: '0xAc1E13e507B77FCdc350FfEd17bbb1927a2ecE09',
-    handler: new Insurance(
+    duration: 90,
+    contract: new PolicyContract(
       '0xAc1E13e507B77FCdc350FfEd17bbb1927a2ecE09',
       eth1000
     ),
