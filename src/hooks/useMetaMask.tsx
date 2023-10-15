@@ -9,7 +9,7 @@ import {
 } from 'react';
 
 import detectEthereumProvider from '@metamask/detect-provider';
-import { formatBalance } from '../utils/index';
+import { weiToEth } from '../utils';
 
 declare global {
   interface Window {
@@ -64,7 +64,7 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
       return;
     }
 
-    const balance = formatBalance(
+    const balance = weiToEth(
       await window.ethereum.request({
         method: 'eth_getBalance',
         params: [accounts[0], 'latest'],
