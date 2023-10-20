@@ -1,11 +1,16 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { policyList } from '../ContractClients';
 import Card from './Card';
 export default function ListPolicy() {
   const [query, setQuery] = useState('');
-  const filteredPolicies = policyList.filter((p) => {
-    return p.policyName.toLowerCase().includes(query.toLowerCase());
-  });
+
+  //derived parameter
+  const filteredPolicies = useMemo(() => {
+    policyList.filter((p) => {
+      return p.policyName.toLowerCase().includes(query.toLowerCase());
+    });
+  }, [query]);
+
   return (
     <section className=" w-full bg-blue-200">
       <div className="max-w-screen-xl mx-auto bg-blue-300">
