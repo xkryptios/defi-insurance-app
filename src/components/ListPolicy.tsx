@@ -1,6 +1,11 @@
+import { useState } from 'react';
 import { policyList } from '../ContractClients';
 import Card from './Card';
 export default function ListPolicy() {
+  const [query, setQuery] = useState('');
+  const filteredPolicies = policyList.filter((p) => {
+    return p.policyName.toLowerCase().includes(query.toLowerCase());
+  });
   return (
     <section className=" w-full bg-blue-200">
       <div className="max-w-screen-xl mx-auto bg-blue-300">
@@ -9,6 +14,7 @@ export default function ListPolicy() {
         <p className="py-5">
           Choose the type of policy you want and get a quote.
         </p>
+
         <form className="py-5">
           {/* <label className="sr-only">Search</label> */}
           <div className="relative w-1/2 flex justify">
@@ -17,7 +23,9 @@ export default function ListPolicy() {
               id="simple-search"
               className=" text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-2 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Search policies"
-              required
+              onChange={(e) => {
+                setQuery(e.target.value);
+              }}
             ></input>
             <span
               className="input-group-text flex items-center whitespace-nowrap rounded px-3 py-1.5 text-center text-base font-normal text-neutral-700 dark:text-neutral-200"
@@ -39,7 +47,7 @@ export default function ListPolicy() {
           </div>
         </form>
         <div className="grid grid-cols-3 gap-4">
-          {policyList.map((policy) => {
+          {filteredPolicies.map((policy) => {
             return <Card key={policy.policyName} policy={policy}></Card>;
           })}
         </div>
