@@ -1,4 +1,4 @@
-import { useMetaMask } from '../hooks/useMetamask.tsx';
+import { useMetaMask } from '../hooks/useMetaMask.tsx';
 import { formatAddress } from '../utils';
 
 export default function ConnectButton() {

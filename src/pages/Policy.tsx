@@ -6,7 +6,7 @@ import { policyList } from '../ContractClients';
 import Nav from '../components/Nav';
 import { formatEther } from 'ethers';
 import { getErrorMessage } from '../utils';
-import { setErrorMessage } from '../hooks/useMetaMask';
+import { useMetaMask } from '../hooks/useMetaMask.tsx';
 
 export default function Policy() {
   const { policyId } = useParams();
@@ -17,6 +17,7 @@ export default function Policy() {
   const [premium, setPremium] = useState('');
   const [errorInput, setErrorInputs] = useState(false);
   const [purchaseSuccess, setPurchaseSuccess] = useState<boolean | null>(null);
+  const { setErrorMessage } = useMetaMask();
   const policy = policyList.find((policy) => policy.address === policyId);
   if (policy === undefined) {
     throw new Error();
@@ -105,9 +106,8 @@ export default function Policy() {
                   details.coverAmount
                 );
               } catch (err: any) {
-                // console.log(err);
-                // const e = err.toString();
-                console.log(getErrorMessage(err.message));
+                const errMsg = getErrorMessage(err.message);
+                setErrorMessage(errMsg);
               }
             }}
             disabled={premium == ''}

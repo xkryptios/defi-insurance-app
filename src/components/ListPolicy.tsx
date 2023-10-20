@@ -3,7 +3,8 @@ import Card from './Card';
 export default function ListPolicy() {
   return (
     <section className=" w-full bg-blue-200">
-      <div className="max-w-screen-lg mx-auto">
+      <div className="max-w-screen-xl mx-auto bg-blue-300">
+        {/* !!rmb to remove bg colour!*/}
         <h1 className=" text-6xl py-10">Buy Policy</h1>
         <p className="py-5">
           Choose the type of policy you want and get a quote.
@@ -37,7 +38,7 @@ export default function ListPolicy() {
             </span>
           </div>
         </form>
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-3 gap-4">
           {policyList.map((policy) => {
             return <Card key={policy.policyName} policy={policy}></Card>;
           })}
