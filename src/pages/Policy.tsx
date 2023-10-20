@@ -32,23 +32,34 @@ export default function Policy() {
   };
 
   return (
-    <div className="bg-blue-200 h-screen">
+    <div className="bg-blue-100 h-screen">
       <Nav></Nav>
-      <div className="max-w-screen-lg mx-auto">
-        <h1 className=" text-6xl py-10">Buy Policy</h1>
-        <h2 className=" text-2xl">{policy && policy.policyName}</h2>
-        <section className="flex flex-col">
-          <div className="flex h-80">
-            <div className=" border-blue-500 border-2 rounded-lg bg-blue-300 w-1/2">
-              contract details hre!!{/* contract details */}
+      <div className=" max-w-screen-xl mx-auto">
+        <h1 className=" text-6xl py-10 px-5">Buy Policy</h1>
+        <h2 className=" text-2xl p-5">{policy && policy.policyName}</h2>
+        <section className="flex flex-col text-gray-800">
+          <div className="flex gap-5 h-80">
+            <div className="rounded-lg border-slate-400 border-2 w-2/3">
+              <div className="text-center text-black font-bold p-5">
+                Terms and Conditions
+              </div>
+              {policy.description!.map((s, idx) => {
+                return (
+                  <div key={idx} className="text-normal p-2">
+                    {s}
+                  </div>
+                );
+              })}
             </div>
-            <div className="border-blue-500 border-2 rounded-lg bg-blue-300 w-1/2">
-              <form>
-                <div>
-                  <label>{'duration(number of days)'}</label>
+            {/* quotation box */}
+            <div className="border-gray-400 border-2 rounded-lg w-1/2 ">
+              <div>
+                {/* duration field */}
+                <div className="flex justify-between items-center m-5 ">
+                  <label>{'Duration (Max 90 Days)'}</label>
                   <input
-                    required
                     type="number"
+                    className="remove-arrow rounded-lg"
                     onChange={(e) => {
                       setDetails((prev) => ({
                         ...prev,
@@ -57,11 +68,13 @@ export default function Policy() {
                     }}
                   />
                 </div>
-                <div>
-                  <label>{'Cover Amount'}</label>
+                {/* cover amount field */}
+                <div className="flex justify-between m-5 items-center">
+                  <label>Cover Amount</label>
                   <input
                     required
                     type="number"
+                    className="remove-arrow rounded-lg"
                     onChange={(e) => {
                       setDetails((prev) => ({
                         ...prev,
@@ -70,10 +83,14 @@ export default function Policy() {
                     }}
                   />
                 </div>
-                <div className="flex justify-around">
+                <div className="text-center">
+                  * Enter the cover amount and duration of cover*
+                </div>
+                {/* get quotation field */}
+                <div className="flex justify-between m-5 pt-5">
                   <button
                     type="button"
-                    className="bg-blue-400 rounded-lg "
+                    className="bg-blue-500 rounded-lg w-1/3 text-white"
                     onClick={async () => {
                       if (validInput()) {
                         const rawPremium =
@@ -85,7 +102,7 @@ export default function Policy() {
                       }
                     }}
                   >
-                    Quote
+                    Quote Premium
                   </button>
                   <input
                     type="text"
@@ -94,11 +111,11 @@ export default function Policy() {
                     value={premium}
                   />
                 </div>
-              </form>
+              </div>
             </div>
           </div>
           <button
-            className="my-10 bg-blue-500 disabled:bg-slate-400"
+            className="my-10 bg-blue-500 disabled:bg-slate-400 p-3 rounded-lg"
             onClick={async () => {
               try {
                 await policy.contract.purchasePolicy(

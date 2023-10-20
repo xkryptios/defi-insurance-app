@@ -13,20 +13,21 @@ export default function ListPolicy() {
 
   return (
     <section className=" w-full bg-blue-200">
-      <div className="max-w-screen-xl mx-auto bg-blue-300">
+      <div className="max-w-screen-xl mx-auto">
         {/* !!rmb to remove bg colour!*/}
         <h1 className=" text-6xl py-10">Buy Policy</h1>
         <p className="py-5">
           Choose the type of policy you want and get a quote.
         </p>
 
-        <form className="py-5">
+        <div className="py-5">
           {/* <label className="sr-only">Search</label> */}
-          <div className="relative w-1/2 flex justify">
+          {/* pl-2 p-2.5 */}
+          <div className="w-1/2 flex justify bg-white rounded-lg focus:border-blue-500 focus:ring-blue-500 ">
             <input
               type="text"
               id="simple-search"
-              className=" text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-2 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className=" text-gray-900 text-sm rounded-lg border-transparent w-full "
               placeholder="Search policies"
               onChange={(e) => {
                 setQuery(e.target.value);
@@ -50,7 +51,7 @@ export default function ListPolicy() {
               </svg>
             </span>
           </div>
-        </form>
+        </div>
         <div className="grid grid-cols-3 gap-4">
           {filteredPolicies.map((policy) => {
             return <Card key={policy.policyName} policy={policy}></Card>;

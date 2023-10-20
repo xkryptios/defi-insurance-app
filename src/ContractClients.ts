@@ -81,6 +81,11 @@ export const policyList = [
   {
     category: 'Eth',
     policyName: 'Ethereum Insurance 1000',
+    description: [
+      'How does the protection work and how much will I get?',
+      'If the price of ETH drops below USD 1000, you are eligible for a payout in ETH after 24 hours.',
+      'After the price drop event you have 7 days to claim the payout. A claim can be issued by clocking the Claim action on the Records section of the application.',
+    ],
     address: '0x725D7FD5D4B6A458956B40Cc767eA08b38534560',
     duration: 90,
     contract: new PolicyContract(
@@ -91,6 +96,11 @@ export const policyList = [
   {
     category: 'Eth',
     policyName: 'Ethereum Insurance 2000',
+    description: [
+      'How does the protection work and how much will I get?',
+      'If the price of ETH drops below USD 2000, you are eligible for a payout in ETH after 24 hours.',
+      'After the price drop event you have 7 days to claim the payout. A claim can be issued by clocking the Claim action on the Records section of the application.',
+    ],
     address: '0x054b6331E3BCA51493af59535F7e0Ce7d46D1c4c',
     duration: 90,
     contract: new PolicyContract(
@@ -101,6 +111,11 @@ export const policyList = [
   {
     category: 'Eth',
     policyName: 'Ethereum Insurance 3000',
+    description: [
+      'How does the protection work and how much will I get?',
+      'If the price of ETH drops below USD 3000, you are eligible for a payout in ETH after 24 hours.',
+      'After the price drop event you have 7 days to claim the payout. A claim can be issued by clocking the Claim action on the Records section of the application.',
+    ],
     address: '0xEc4536e106ea8dd538c803FEAB67c9C50924DC72',
     duration: 90,
     contract: new PolicyContract(
@@ -111,6 +126,11 @@ export const policyList = [
   {
     category: 'Weather',
     policyName: 'Weather Insurance',
+    description: [
+      'How does the protection work and how much will I get?',
+      'If the price of ETH drops below USD 2000, you are eligible for a payout in ETH after 24 hours.',
+      'After the price drop event you have 7 days to claim the payout. A claim can be issued by clocking the Claim action on the Records section of the application.',
+    ],
     address: '0xAc1E13e507B77FCdc350FfEd17bbb1927a2ecE09',
     duration: 90,
     contract: new PolicyContract(
