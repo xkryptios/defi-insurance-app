@@ -6,7 +6,7 @@ export default function ListPolicy() {
 
   //derived parameter
   const filteredPolicies = useMemo(() => {
-    policyList.filter((p) => {
+    return policyList.filter((p) => {
       return p.policyName.toLowerCase().includes(query.toLowerCase());
     });
   }, [query]);
