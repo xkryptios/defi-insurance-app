@@ -1,9 +1,26 @@
-import { wallet } from '../hooks/useMetamask';
+import { useState } from 'react';
+import { useMetaMask } from '../hooks/useMetaMask.tsx';
+
+import { PolicyData, policyList } from '../ContractClients';
 const entries = [1, 2, 3, 4];
 
 export default function Table() {
+  const { wallet } = useMetaMask();
+  const [policyData, setPolicyData] = useState<PolicyData[]>([]);
+
+  const getPolicyData = async () => {
+    if (wallet.accounts.length == 0) return;
+    const testContract = policyList[0].contract;
+    const result = await testContract.policies(wallet.accounts[0], 0);
+    result.policyName = policyList[0].policyName;
+    setPolicyData((prev) => prev.concat([result]));
+  };
+
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <button type="button" className="p-5 bg-white" onClick={getPolicyData}>
+        test
+      </button>
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
@@ -31,8 +48,8 @@ export default function Table() {
           </tr>
         </thead>
         <tbody>
-          {entries.map(() => {
-            return <TableRow />;
+          {policyData.map((p, idx) => {
+            return <TableRow key={idx} policyData={p} />;
           })}
         </tbody>
       </table>
@@ -40,23 +57,27 @@ export default function Table() {
   );
 }
 
-function TableRow() {
+type tRowProp = {
+  policyData: PolicyData;
+};
+function TableRow({ policyData }: tRowProp) {
   return (
     <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
       <th
         scope="row"
         className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
       >
-        Apple MacBook Pro 17"!!
+        {policyData.policyName}
       </th>
-      <td className="px-6 py-10">Silver</td>
-      <td className="px-6 py-4">Laptop</td>
-      <td className="px-6 py-4">Laptop</td>
-      <td className="px-6 py-4">$2999</td>
-      <td className="px-6 py-4">$2999</td>
+      <td className="px-6 py-10">{policyData.startDate}</td>
+      <td className="px-6 py-4">{policyData.endDate}</td>
+      <td className="px-6 py-4">{policyData.premium}</td>
+      <td className="px-6 py-4">{policyData.coverAmount}</td>
+      <td className="px-6 py-4">{policyData.status}</td>
       <td className="px-6 py-4">
         <button
           type="button"
+          disabled={policyData.startDate != 'ACTIVE'}
           className="font-medium text-white bg-blue-600 p-2 rounded-lg disabled:bg-slate-500 disabled:text-black hover:bg-blue-800"
         >
           Claim

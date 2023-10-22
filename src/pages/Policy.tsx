@@ -95,8 +95,8 @@ export default function Policy() {
                       if (validInput()) {
                         const rawPremium =
                           await policy.contract.calculatePremium(
-                            details.duration,
-                            details.coverAmount
+                            details.coverAmount,
+                            details.duration
                           );
                         setPremium(formatEther(rawPremium));
                       }
@@ -119,8 +119,8 @@ export default function Policy() {
             onClick={async () => {
               try {
                 await policy.contract.purchasePolicy(
-                  details.duration,
-                  details.coverAmount
+                  details.coverAmount,
+                  details.duration
                 );
               } catch (err: any) {
                 const errMsg = getErrorMessage(err.message);

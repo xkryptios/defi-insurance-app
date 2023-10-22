@@ -4,7 +4,7 @@ export default function Records() {
   return (
     <div className="bg-blue-200 h-screen">
       <Nav></Nav>
-      <div className="max-w-screen-lg mx-auto">
+      <div className="max-w-screen-xl mx-auto">
         <h1 className="text-4xl p-8 text-center">Records</h1>
         <Table></Table>
       </div>
