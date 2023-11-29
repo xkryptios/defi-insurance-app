@@ -12,7 +12,7 @@ export default function ListPolicy() {
   }, [query]);
 
   return (
-    <section className=" w-full bg-blue-200">
+    <section className="w-full">
       <div className="max-w-screen-xl mx-auto">
         {/* !!rmb to remove bg colour!*/}
         <h1 className=" text-6xl py-10">Buy Policy</h1>

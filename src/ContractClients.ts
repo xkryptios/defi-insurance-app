@@ -17,6 +17,7 @@ export type PolicyData = {
   premium: string;
   coverAmount: string;
   status: 'ACTIVE' | 'CLAIMED' | 'EXPIRED';
+  contract: any;
 };
 
 export const epochToDate = (epoch: number) => {
@@ -35,92 +36,131 @@ export const getStatus = (claim: boolean, endDate: number) => {
 export type Policy = {
   category: string;
   policyName: string;
+  logoPath: string;
   address: string;
   duration: number;
-  contract: TestPolicyContract;
-  // EthPolicyContract | WeatherPolicyContract |
+  contract: EthPolicyContract | WeatherPolicyContract | TestPolicyContract;
+  //
+};
+
+export const getAllUserPolicy = async (address: string) => {
+  let dataList: PolicyData[] = [];
+  dataList = dataList.concat(
+    await policyList[0].contract.getUserPolicies(address)
+  );
+  // dataList = dataList.concat(
+  //   await policyList[1].contract.getUserPolicies(address)
+  // );
+  const result = await policyList[2].contract.getUserPolicies(address);
+  // console.log(result);
+  dataList = dataList.concat(result);
+  // dataList = dataList.concat(
+  //   await policyList[3].contract.getUserPolicies(address)
+  // );
+  dataList = dataList.concat(
+    await policyList[4].contract.getUserPolicies(address)
+  );
+  dataList = [
+    ...dataList.filter(({ status }) => status == 'ACTIVE'),
+    ...dataList.filter(({ status }) => status !== 'ACTIVE'),
+  ];
+
+  return dataList;
 };
 
 export const policyList = [
-  // {
-  //   id: 0,
-  //   category: 'Eth',
-  //   policyName: 'Ethereum Insurance 1000',
-  //   description: [
-  //     'How does the protection work and how much will I get?',
-  //     'If the price of ETH drops below USD 1000, you are eligible for a payout in ETH after 24 hours.',
-  //     'After the price drop event you have 7 days to claim the payout. A claim can be issued by clocking the Claim action on the Records section of the application.',
-  //   ],
-  //   address: '0x0312c83f4E44625a64CFDaAaD15f1E4470E87b6e',
-  //   duration: 90,
-  //   contract: new EthPolicyContract(
-  //     '0x0312c83f4E44625a64CFDaAaD15f1E4470E87b6e',
-  //     eth1000
-  //   ),
-  // },
-  // {
-  //   id: 1,
-  //   category: 'Eth',
-  //   policyName: 'Ethereum Insurance 2000',
-  //   description: [
-  //     'How does the protection work and how much will I get?',
-  //     'If the price of ETH drops below USD 2000, you are eligible for a payout in ETH after 24 hours.',
-  //     'After the price drop event you have 7 days to claim the payout. A claim can be issued by clocking the Claim action on the Records section of the application.',
-  //   ],
-  //   address: '0x054b6331E3BCA51493af59535F7e0Ce7d46D1c4c',
-  //   duration: 90,
-  //   contract: new EthPolicyContract(
-  //     '0x054b6331E3BCA51493af59535F7e0Ce7d46D1c4c',
-  //     eth2000
-  //   ),
-  // },
-  // {
-  //   id: 2,
-  //   category: 'Eth',
-  //   policyName: 'Ethereum Insurance 3000',
-  //   description: [
-  //     'How does the protection work and how much will I get?',
-  //     'If the price of ETH drops below USD 3000, you are eligible for a payout in ETH after 24 hours.',
-  //     'After the price drop event you have 7 days to claim the payout. A claim can be issued by clocking the Claim action on the Records section of the application.',
-  //   ],
-  //   address: '0xEc4536e106ea8dd538c803FEAB67c9C50924DC72',
-  //   duration: 90,
-  //   contract: new EthPolicyContract(
-  //     '0xEc4536e106ea8dd538c803FEAB67c9C50924DC72',
-  //     eth3000
-  //   ),
-  // },
-  // {
-  //   id: 3,
+  {
+    id: 0,
+    category: 'Eth',
+    policyName: 'Ethereum Insurance 1000',
+    logoPath: '/ethereum-eth-logo.png',
+    description: [
+      'How does the protection work and how much will I get?',
+      'If the price of ETH drops below USD 1000, you are eligible for a payout in ETH after 24 hours.',
+      'After the price drop event you have 7 days to claim the payout. A claim can be issued by clicking the Claim action on the Records section of the application.',
+    ],
+    address: '0x77f055E6CAF9b7b0BB0aa6384f95ecb324C6D48C',
+    duration: 90,
+    contract: new EthPolicyContract(
+      '0x77f055E6CAF9b7b0BB0aa6384f95ecb324C6D48C',
+      eth1000,
+      'Ethereum Insurance 1000'
+    ),
+  },
+  {
+    id: 1,
+    category: 'Eth',
+    policyName: 'Ethereum Insurance 2000',
+    logoPath: '/ethereum-eth-logo.png',
 
-  //   category: 'Weather',
-  //   policyName: 'Weather Insurance',
-  //   description: [
-  //     'How does the protection work and how much will I get?',
-  //     'If total precipitation is 0 for 2 consecutive weeks, you are eligible for a payout in ETH after 24hrs.',
-  //     'After the drought drop event you have 7 days to claim the payout. A claim can be issued by clocking the Claim action on the Records section of the application.',
-  //   ],
-  //   address: '0xf52767a8171441403B5be0A975d7D84300D66B87',
-  //   duration: 90,
-  //   contract: new WeatherPolicyContract(
-  //     '0xf52767a8171441403B5be0A975d7D84300D66B87',
-  //     weatherInsurance
-  //   ),
-  // },
+    description: [
+      'How does the protection work and how much will I get?',
+      'If the price of ETH drops below USD 2000, you are eligible for a payout in ETH after 24 hours.',
+      'After the price drop event you have 7 days to claim the payout. A claim can be issued by clicking the Claim action on the Records section of the application.',
+    ],
+    address: '0x4Ec135534E39767164eb961A76a6023327974a86',
+    duration: 90,
+    contract: new EthPolicyContract(
+      '0x4Ec135534E39767164eb961A76a6023327974a86',
+      eth2000,
+      'Ethereum Insurance 2000'
+    ),
+  },
+  {
+    id: 2,
+    category: 'Eth',
+    policyName: 'Ethereum Insurance 3000',
+    logoPath: '/ethereum-eth-logo.png',
+
+    description: [
+      'How does the protection work and how much will I get?',
+      'If the price of ETH drops below USD 3000, you are eligible for a payout in ETH after 24 hours.',
+      'After the price drop event you have 7 days to claim the payout. A claim can be issued by clicking the Claim action on the Records section of the application.',
+    ],
+    address: '0x67d1487F594F4Bd618A80314D37FF4A637b5CfFb',
+    duration: 90,
+    contract: new EthPolicyContract(
+      '0x67d1487F594F4Bd618A80314D37FF4A637b5CfFb',
+      eth3000,
+      'Ethereum Insurance 3000'
+    ),
+  },
+  {
+    id: 3,
+
+    category: 'Weather',
+    policyName: 'Weather Insurance',
+    logoPath: '/weather-logo.png',
+
+    description: [
+      'How does the protection work and how much will I get?',
+      'If total precipitation is 0 for 2 consecutive weeks, you are eligible for a payout in ETH after 24hrs.',
+      'After the drought drop event you have 7 days to claim the payout. A claim can be issued by clicking the Claim action on the Records section of the application.',
+    ],
+    address: '0x639b6CD562E089fac8Aa2422FdC74a7330332968',
+    duration: 90,
+    contract: new WeatherPolicyContract(
+      '0x639b6CD562E089fac8Aa2422FdC74a7330332968',
+      weatherInsurance,
+      'Weather Insurance'
+    ),
+  },
   {
     id: 4,
     category: 'Test',
     policyName: 'Test Insurance',
+    logoPath: '/test-logo.webp',
     description: [
       'How does the protection work and how much will I get?',
       'There is no checks for claiming of this policy. The cover amount for this polcy is equivalent to its premium.',
       'Note: You can only hold 1 of each policy at a time.',
     ],
-    address: '0x9E717daA7A0F1957594D5043957a4F620326D474',
+    address: '0xaba019984b30f2F06aF6928210603BB634d10050',
     duration: 90,
     contract: new TestPolicyContract(
-      '0x9E717daA7A0F1957594D5043957a4F620326D474',
-      testInsurance
+      '0xaba019984b30f2F06aF6928210603BB634d10050',
+      testInsurance,
+      'Test Insurance'
     ),
   },
 ];

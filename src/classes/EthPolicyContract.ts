@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ethers, parseEther } from 'ethers';
-
+import { ethers, parseEther, formatEther } from 'ethers';
+import { PolicyData, epochToDate, getStatus } from '../ContractClients';
 export class EthPolicyContract {
+  public policyName: string;
   private provider: ethers.BrowserProvider;
   private contract: ethers.Contract;
   private abi: any;
   public address: string;
 
-  public constructor(address: string, data: any) {
+  public constructor(address: string, data: any, name: string) {
+    this.policyName = name;
     this.provider = new ethers.BrowserProvider(window.ethereum);
     this.address = address;
     this.abi = data['abi'];
@@ -32,24 +34,54 @@ export class EthPolicyContract {
     );
 
     const tx = await connectedContract.purchaseInsurance(
-      duration,
       parseEther(coverAmount.toString()),
+      duration,
       { value: premium }
     );
     console.log('purchase processed');
     await tx;
   }
   public async claim() {
-    return await this.contract.claim();
+    console.log('here');
+    const signer = await this.provider.getSigner();
+    const connectedContract = new ethers.Contract(
+      this.address,
+      this.abi,
+      signer
+    );
+    await connectedContract.claim();
+    console.log('claim processed');
   }
   public async getEthPrice() {
     return await this.contract.getEthPrice();
   }
-  public async getUserPolicies() {
-    const result = await this.getNumPolicies();
-    console.log(result);
+
+  public async getUserPolicies(userAddress: string) {
+    const num = await this.getNumPolicies(userAddress);
+    const policyDataList: PolicyData[] = [];
+    for (let i = 0; i < Number(num); i++) {
+      const data = await this.getPolicy(userAddress, i);
+      policyDataList.push(data);
+    }
+    return policyDataList;
   }
-  public async getNumPolicies() {
-    return await this.contract.getNumPolicies;
+  private async getNumPolicies(userAddress: string) {
+    return await this.contract.numPolicies(userAddress);
+  }
+  private async getPolicy(userAddress: string, id: number) {
+    const res = await this.contract.policies(userAddress, id);
+    const data: PolicyData = {
+      policyName: this.policyName,
+      premium: formatEther(res[0]),
+      coverAmount: formatEther(res[1]),
+      startDate: epochToDate(Number(res[2])),
+      endDate: epochToDate(Number(res[3])),
+      status: getStatus(Boolean(res[4]), Number(res[3])),
+      contract: this,
+    };
+    return data;
+  }
+  public async getDecimals() {
+    return await this.contract.getEthDecimalPlace();
   }
 }

@@ -28,10 +28,14 @@ interface MetaMaskContextData {
   hasProvider: boolean | null;
   error: boolean;
   errorMessage: string;
+  success: boolean;
+  successMessage: string;
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
+  setSuccessMessage: React.Dispatch<React.SetStateAction<string>>;
   isConnecting: boolean;
   connectMetaMask: () => void;
   clearError: () => void;
+  clearSuccess: () => void;
 }
 
 const disconnectedState: WalletState = {
@@ -50,7 +54,9 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
   const [isConnecting, setIsConnecting] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const clearError = () => setErrorMessage('');
+  const clearSuccess = () => setSuccessMessage('');
 
   const [wallet, setWallet] = useState(disconnectedState);
   // useCallback ensures that you don't uselessly recreate the _updateWallet function on every render
@@ -135,10 +141,14 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
         hasProvider,
         error: !!errorMessage,
         errorMessage,
+        success: !!successMessage,
+        successMessage,
         isConnecting,
         setErrorMessage,
+        setSuccessMessage,
         connectMetaMask,
         clearError,
+        clearSuccess,
       }}
     >
       {children}

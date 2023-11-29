@@ -13,10 +13,7 @@ export default function Card({ policy }: Props) {
     >
       {/* header for each policy in main page */}
       <div className="flex items-center w-full mb-4 ">
-        <img
-          src="../../public/ethereum-eth-logo.png"
-          className="w-10 rounded-lg"
-        />
+        <img src={policy.logoPath} className="w-10 rounded-lg" />
         <h5 className="text-2xl  font-bold tracking-tight text-gray-900 dark:text-white">
           {policy.policyName}
         </h5>
