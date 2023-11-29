@@ -31,7 +31,7 @@ export default function Card({ policy }: Props) {
       {/* capacity information */}
       <div className="flex justify-between w-full font-normal text-gray-700 dark:text-gray-400">
         <div>Capacity:</div>
-        <div> ~1000 Eth</div>
+        <div> ~100 Eth</div>
       </div>
       <div className="w-1/2 text-center border-blue-500 border-2 rounded-full mt-5">
         GET QUOTE

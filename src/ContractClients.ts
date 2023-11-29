@@ -48,15 +48,15 @@ export const getAllUserPolicy = async (address: string) => {
   dataList = dataList.concat(
     await policyList[0].contract.getUserPolicies(address)
   );
-  // dataList = dataList.concat(
-  //   await policyList[1].contract.getUserPolicies(address)
-  // );
+  dataList = dataList.concat(
+    await policyList[1].contract.getUserPolicies(address)
+  );
   const result = await policyList[2].contract.getUserPolicies(address);
   // console.log(result);
   dataList = dataList.concat(result);
-  // dataList = dataList.concat(
-  //   await policyList[3].contract.getUserPolicies(address)
-  // );
+  dataList = dataList.concat(
+    await policyList[3].contract.getUserPolicies(address)
+  );
   dataList = dataList.concat(
     await policyList[4].contract.getUserPolicies(address)
   );
@@ -133,14 +133,15 @@ export const policyList = [
     logoPath: '/weather-logo.png',
 
     description: [
+      '*Only for farmers*',
       'How does the protection work and how much will I get?',
       'If total precipitation is 0 for 2 consecutive weeks, you are eligible for a payout in ETH after 24hrs.',
       'After the drought drop event you have 7 days to claim the payout. A claim can be issued by clicking the Claim action on the Records section of the application.',
     ],
-    address: '0x639b6CD562E089fac8Aa2422FdC74a7330332968',
+    address: '0xa9ee2289899996308c048388A6fB060597D3EbE0',
     duration: 90,
     contract: new WeatherPolicyContract(
-      '0x639b6CD562E089fac8Aa2422FdC74a7330332968',
+      '0xa9ee2289899996308c048388A6fB060597D3EbE0',
       weatherInsurance,
       'Weather Insurance'
     ),

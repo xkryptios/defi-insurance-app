@@ -33,17 +33,27 @@ export class WeatherPolicyContract {
       this.abi,
       signer
     );
+    console.log(premium);
 
     const tx = await connectedContract.purchaseInsurance(
       parseEther(coverAmount.toString()),
       duration,
+      parseEther('1'),
+      parseEther('103'),
       { value: premium }
     );
     console.log('purchase processed');
     await tx;
   }
   public async claim() {
-    return await this.contract.claim();
+    const signer = await this.provider.getSigner();
+    const connectedContract = new ethers.Contract(
+      this.address,
+      this.abi,
+      signer
+    );
+    await connectedContract.claim();
+    console.log('claim processed');
   }
   public async getEthPrice() {
     return await this.contract.getEthPrice();
@@ -68,7 +78,7 @@ export class WeatherPolicyContract {
       coverAmount: formatEther(res[1]),
       startDate: epochToDate(Number(res[2])),
       endDate: epochToDate(Number(res[3])),
-      status: getStatus(Boolean(res[4]), Number(res[3])),
+      status: getStatus(Boolean(res[6]), Number(res[3])),
       contract: this,
     };
     return data;
